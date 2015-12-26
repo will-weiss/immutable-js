@@ -20,13 +20,14 @@
  * Note: all examples are presented in [ES6][]. To run in all browsers, they
  * need to be translated to ES3. For example:
  *
- *   // ES6
- *   foo.map(x => x * x);
- *   // ES3
- *   foo.map(function (x) { return x * x; });
+ *     // ES6
+ *     foo.map(x => x * x);
+ *     // ES3
+ *     foo.map(function (x) { return x * x; });
  *
  * [ES6]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla
  */
+
 
 declare module Immutable {
 
@@ -43,14 +44,14 @@ declare module Immutable {
    *
    * This example converts JSON to List and OrderedMap:
    *
-   *   Immutable.fromJS({a: {b: [10, 20, 30]}, c: 40}, function (key, value) {
-   *     var isIndexed = Immutable.Iterable.isIndexed(value);
-   *     return isIndexed ? value.toList() : value.toOrderedMap();
-   *   });
+   *     Immutable.fromJS({a: {b: [10, 20, 30]}, c: 40}, function (key, value) {
+   *       var isIndexed = Immutable.Iterable.isIndexed(value);
+   *       return isIndexed ? value.toList() : value.toOrderedMap();
+   *     });
    *
-   *   // true, "b", {b: [10, 20, 30]}
-   *   // false, "a", {a: {b: [10, 20, 30]}, c: 40}
-   *   // false, "", {"": {a: {b: [10, 20, 30]}, c: 40}}
+   *     // true, "b", {b: [10, 20, 30]}
+   *     // false, "a", {a: {b: [10, 20, 30]}, c: 40}
+   *     // false, "", {"": {a: {b: [10, 20, 30]}, c: 40}}
    *
    * If `reviver` is not provided, the default behavior will convert Arrays into
    * Lists and Objects into Maps.
@@ -81,7 +82,7 @@ declare module Immutable {
    * not altered.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#Example.3A_Using_the_reviver_parameter
-   *    "Using the reviver parameter"
+   *      "Using the reviver parameter"
    */
   export function fromJS(
     json: any,
@@ -97,11 +98,11 @@ declare module Immutable {
    * It's used throughout Immutable when checking for equality, including `Map`
    * key equality and `Set` membership.
    *
-   *   var map1 = Immutable.Map({a:1, b:1, c:1});
-   *   var map2 = Immutable.Map({a:1, b:1, c:1});
-   *   assert(map1 !== map2);
-   *   assert(Object.is(map1, map2) === false);
-   *   assert(Immutable.is(map1, map2) === true);
+   *     var map1 = Immutable.Map({a:1, b:1, c:1});
+   *     var map2 = Immutable.Map({a:1, b:1, c:1});
+   *     assert(map1 !== map2);
+   *     assert(Object.is(map1, map2) === false);
+   *     assert(Immutable.is(map1, map2) === true);
    *
    * Note: Unlike `Object.is`, `Immutable.is` assumes `0` and `-0` are the same
    * value, matching the behavior of ES6 Map key equality.
@@ -439,8 +440,8 @@ declare module Immutable {
    * Immutable collections are treated as values, any Immutable collection may
    * be used as a key.
    *
-   *   Map().set(List.of(1), 'listofone').get(List.of(1));
-   *   // 'listofone'
+   *     Map().set(List.of(1), 'listofone').get(List.of(1));
+   *     // 'listofone'
    *
    * Any JavaScript object may be used as a key, however strict identity is used
    * to evaluate key equality. Two similar looking objects will represent two
@@ -462,8 +463,8 @@ declare module Immutable {
    * Created with the same key value pairs as the provided Iterable.Keyed or
    * JavaScript Object or expects an Iterable of [K, V] tuple entries.
    *
-   *   var newMap = Map({key: "value"});
-   *   var newMap = Map([["key", "value"]]);
+   *     var newMap = Map({key: "value"});
+   *     var newMap = Map([["key", "value"]]);
    *
    * Keep in mind, when using JS objects to construct Immutable Maps, that
    * JavaScript Object properties are always strings, even if written in a
@@ -540,10 +541,10 @@ declare module Immutable {
      * Iterable but includes non-iterable JS objects or arrays, those nested
      * values will be preserved.
      *
-     *   var x = Immutable.Map({a: 10, b: 20, c: 30});
-     *   var y = Immutable.Map({b: 40, a: 50, d: 60});
-     *   x.merge(y) // { a: 50, b: 40, c: 30, d: 60 }
-     *   y.merge(x) // { b: 20, a: 10, d: 60, c: 30 }
+     *     var x = Immutable.Map({a: 10, b: 20, c: 30});
+     *     var y = Immutable.Map({b: 40, a: 50, d: 60});
+     *     x.merge(y) // { a: 50, b: 40, c: 30, d: 60 }
+     *     y.merge(x) // { b: 20, a: 10, d: 60, c: 30 }
      *
      */
     merge(...iterables: Iterable<K, V>[]): Map<K, V>;
@@ -555,10 +556,10 @@ declare module Immutable {
      * the provided Iterables (or JS objects) into this Map, but uses the
      * `merger` function for dealing with conflicts.
      *
-     *   var x = Immutable.Map({a: 10, b: 20, c: 30});
-     *   var y = Immutable.Map({b: 40, a: 50, d: 60});
-     *   x.mergeWith((prev, next) => prev / next, y) // { a: 0.2, b: 0.5, c: 30, d: 60 }
-     *   y.mergeWith((prev, next) => prev / next, x) // { b: 2, a: 5, d: 60, c: 30 }
+     *     var x = Immutable.Map({a: 10, b: 20, c: 30});
+     *     var y = Immutable.Map({b: 40, a: 50, d: 60});
+     *     x.mergeWith((prev, next) => prev / next, y) // { a: 0.2, b: 0.5, c: 30, d: 60 }
+     *     y.mergeWith((prev, next) => prev / next, x) // { b: 2, a: 5, d: 60, c: 30 }
      *
      */
     mergeWith(
@@ -578,9 +579,9 @@ declare module Immutable {
      * Like `merge()`, but when two Iterables conflict, it merges them as well,
      * recursing deeply through the nested data.
      *
-     *   var x = Immutable.fromJS({a: { x: 10, y: 10 }, b: { x: 20, y: 50 } });
-     *   var y = Immutable.fromJS({a: { x: 2 }, b: { y: 5 }, c: { z: 3 } });
-     *   x.mergeDeep(y) // {a: { x: 2, y: 10 }, b: { x: 20, y: 5 }, c: { z: 3 } }
+     *     var x = Immutable.fromJS({a: { x: 10, y: 10 }, b: { x: 20, y: 50 } });
+     *     var y = Immutable.fromJS({a: { x: 2 }, b: { y: 5 }, c: { z: 3 } });
+     *     x.mergeDeep(y) // {a: { x: 2, y: 10 }, b: { x: 20, y: 5 }, c: { z: 3 } }
      *
      */
     mergeDeep(...iterables: Iterable<K, V>[]): Map<K, V>;
@@ -591,10 +592,10 @@ declare module Immutable {
      * Like `mergeDeep()`, but when two non-Iterables conflict, it uses the
      * `merger` function to determine the resulting value.
      *
-     *   var x = Immutable.fromJS({a: { x: 10, y: 10 }, b: { x: 20, y: 50 } });
-     *   var y = Immutable.fromJS({a: { x: 2 }, b: { y: 5 }, c: { z: 3 } });
-     *   x.mergeDeepWith((prev, next) => prev / next, y)
-     *   // {a: { x: 5, y: 10 }, b: { x: 20, y: 10 }, c: { z: 3 } }
+     *     var x = Immutable.fromJS({a: { x: 10, y: 10 }, b: { x: 20, y: 50 } });
+     *     var y = Immutable.fromJS({a: { x: 2 }, b: { y: 5 }, c: { z: 3 } });
+     *     x.mergeDeepWith((prev, next) => prev / next, y)
+     *     // {a: { x: 5, y: 10 }, b: { x: 20, y: 10 }, c: { z: 3 } }
      *
      */
     mergeDeepWith(
@@ -640,16 +641,16 @@ declare module Immutable {
      * value, the `updater` function will be called with `notSetValue`, if
      * provided, otherwise `undefined`.
      *
-     *   var data = Immutable.fromJS({ a: { b: { c: 10 } } });
-     *   data = data.updateIn(['a', 'b', 'c'], val => val * 2);
-     *   // { a: { b: { c: 20 } } }
+     *     var data = Immutable.fromJS({ a: { b: { c: 10 } } });
+     *     data = data.updateIn(['a', 'b', 'c'], val => val * 2);
+     *     // { a: { b: { c: 20 } } }
      *
      * If the `updater` function returns the same value it was called with, then
      * no change will occur. This is still true if `notSetValue` is provided.
      *
-     *   var data1 = Immutable.fromJS({ a: { b: { c: 10 } } });
-     *   data2 = data1.updateIn(['x', 'y', 'z'], 100, val => val);
-     *   assert(data2 === data1);
+     *     var data1 = Immutable.fromJS({ a: { b: { c: 10 } } });
+     *     data2 = data1.updateIn(['x', 'y', 'z'], 100, val => val);
+     *     assert(data2 === data1);
      *
      */
     updateIn(
@@ -676,8 +677,8 @@ declare module Immutable {
      * performing the merge at a point arrived at by following the keyPath.
      * In other words, these two lines are equivalent:
      *
-     *   x.updateIn(['a', 'b', 'c'], abc => abc.merge(y));
-     *   x.mergeIn(['a', 'b', 'c'], y);
+     *     x.updateIn(['a', 'b', 'c'], abc => abc.merge(y));
+     *     x.mergeIn(['a', 'b', 'c'], y);
      *
      */
     mergeIn(
@@ -710,8 +711,8 @@ declare module Immutable {
      * performing the deep merge at a point arrived at by following the keyPath.
      * In other words, these two lines are equivalent:
      *
-     *   x.updateIn(['a', 'b', 'c'], abc => abc.mergeDeep(y));
-     *   x.mergeDeepIn(['a', 'b', 'c'], y);
+     *     x.updateIn(['a', 'b', 'c'], abc => abc.mergeDeep(y));
+     *     x.mergeDeepIn(['a', 'b', 'c'], y);
      *
      */
     mergeDeepIn(
@@ -755,12 +756,12 @@ declare module Immutable {
      *
      * As an example, this results in the creation of 2, not 4, new Maps:
      *
-     *   var map1 = Immutable.Map();
-     *   var map2 = map1.withMutations(map => {
-     *     map.set('a', 1).set('b', 2).set('c', 3);
-     *   });
-     *   assert(map1.size === 0);
-     *   assert(map2.size === 3);
+     *     var map1 = Immutable.Map();
+     *     var map2 = map1.withMutations(map => {
+     *       map.set('a', 1).set('b', 2).set('c', 3);
+     *     });
+     *     assert(map1.size === 0);
+     *     assert(map2.size === 3);
      *
      * Note: Not all methods can be used on a mutable collection or within
      * `withMutations`! Only `set` and `merge` may be used mutatively.
@@ -821,8 +822,8 @@ declare module Immutable {
    * The iteration order of key-value pairs provided to this constructor will
    * be preserved in the OrderedMap.
    *
-   *   var newOrderedMap = OrderedMap({key: "value"});
-   *   var newOrderedMap = OrderedMap([["key", "value"]]);
+   *     var newOrderedMap = OrderedMap({key: "value"});
+   *     var newOrderedMap = OrderedMap([["key", "value"]]);
    *
    */
   export function OrderedMap<K, V>(): OrderedMap<K, V>;
@@ -1126,12 +1127,12 @@ declare module Immutable {
    * (exclusive), by `step`, where `start` defaults to 0, `step` to 1, and `end` to
    * infinity. When `start` is equal to `end`, returns empty range.
    *
-   *   Range() // [0,1,2,3,...]
-   *   Range(10) // [10,11,12,13,...]
-   *   Range(10,15) // [10,11,12,13,14]
-   *   Range(10,30,5) // [10,15,20,25]
-   *   Range(30,10,5) // [30,25,20,15]
-   *   Range(30,30,5) // []
+   *     Range() // [0,1,2,3,...]
+   *     Range(10) // [10,11,12,13,...]
+   *     Range(10,15) // [10,11,12,13,14]
+   *     Range(10,30,5) // [10,15,20,25]
+   *     Range(30,10,5) // [30,25,20,15]
+   *     Range(30,30,5) // []
    *
    */
   export function Range(start?: number, end?: number, step?: number): Seq.Indexed<number>;
@@ -1141,8 +1142,8 @@ declare module Immutable {
    * Returns a Seq.Indexed of `value` repeated `times` times. When `times` is
    * not defined, returns an infinite `Seq` of `value`.
    *
-   *   Repeat('foo') // ['foo','foo','foo',...]
-   *   Repeat('bar',4) // ['bar','bar','bar','bar']
+   *     Repeat('foo') // ['foo','foo','foo',...]
+   *     Repeat('bar',4) // ['bar','bar','bar','bar']
    *
    */
   export function Repeat<T>(value: T, times?: number): Seq.Indexed<T>;
@@ -1153,26 +1154,26 @@ declare module Immutable {
    * a JS object, but enforce a specific set of allowed string keys, and have
    * default values.
    *
-   *   var ABRecord = Record({a:1, b:2})
-   *   var myRecord = new ABRecord({b:3})
+   *     var ABRecord = Record({a:1, b:2})
+   *     var myRecord = new ABRecord({b:3})
    *
    * Records always have a value for the keys they define. `remove`ing a key
    * from a record simply resets it to the default value for that key.
    *
-   *   myRecord.size // 2
-   *   myRecord.get('a') // 1
-   *   myRecord.get('b') // 3
-   *   myRecordWithoutB = myRecord.remove('b')
-   *   myRecordWithoutB.get('b') // 2
-   *   myRecordWithoutB.size // 2
+   *     myRecord.size // 2
+   *     myRecord.get('a') // 1
+   *     myRecord.get('b') // 3
+   *     myRecordWithoutB = myRecord.remove('b')
+   *     myRecordWithoutB.get('b') // 2
+   *     myRecordWithoutB.size // 2
    *
    * Values provided to the constructor not found in the Record type will
    * be ignored. For example, in this case, ABRecord is provided a key "x" even
    * though only "a" and "b" have been defined. The value for "x" will be
    * ignored for this record.
    *
-   *   var myRecord = new ABRecord({b:3, x:10})
-   *   myRecord.get('x') // undefined
+   *     var myRecord = new ABRecord({b:3, x:10})
+   *     myRecord.get('x') // undefined
    *
    * Because Records have a known set of string keys, property get access works
    * as expected, however property sets will throw an Error.
@@ -1180,8 +1181,8 @@ declare module Immutable {
    * Note: IE8 does not support property access. Only use `get()` when
    * supporting IE8.
    *
-   *   myRecord.b // 3
-   *   myRecord.b = 5 // throws Error
+   *     myRecord.b // 3
+   *     myRecord.b = 5 // throws Error
    *
    * Record Classes can be extended as well, allowing for custom methods on your
    * Record. This is not a common pattern in functional environments, but is in
@@ -1189,14 +1190,14 @@ declare module Immutable {
    *
    * Note: TypeScript does not support this type of subclassing.
    *
-   *   class ABRecord extends Record({a:1,b:2}) {
-   *     getAB() {
-   *     return this.a + this.b;
+   *     class ABRecord extends Record({a:1,b:2}) {
+   *       getAB() {
+   *         return this.a + this.b;
+   *       }
    *     }
-   *   }
    *
-   *   var myRecord = new ABRecord({b: 3})
-   *   myRecord.getAB() // 4
+   *     var myRecord = new ABRecord({b: 3})
+   *     myRecord.getAB() // 4
    *
    */
   export module Record {
@@ -1232,36 +1233,36 @@ declare module Immutable {
    * For example, the following performs no work, because the resulting
    * Seq's values are never iterated:
    *
-   *   var oddSquares = Immutable.Seq.of(1,2,3,4,5,6,7,8)
-   *     .filter(x => x % 2).map(x => x * x);
+   *     var oddSquares = Immutable.Seq.of(1,2,3,4,5,6,7,8)
+   *       .filter(x => x % 2).map(x => x * x);
    *
    * Once the Seq is used, it performs only the work necessary. In this
    * example, no intermediate data structures are ever created, filter is only
    * called three times, and map is only called once:
    *
-   *   console.log(evenSquares.get(1)); // 9
+   *     console.log(evenSquares.get(1)); // 9
    *
    * Seq allows for the efficient chaining of operations,
    * allowing for the expression of logic that can otherwise be very tedious:
    *
-   *   Immutable.Seq({a:1, b:1, c:1})
-   *     .flip().map(key => key.toUpperCase()).flip().toObject();
-   *   // Map { A: 1, B: 1, C: 1 }
+   *     Immutable.Seq({a:1, b:1, c:1})
+   *       .flip().map(key => key.toUpperCase()).flip().toObject();
+   *     // Map { A: 1, B: 1, C: 1 }
    *
    * As well as expressing logic that would otherwise be memory or time limited:
    *
-   *   Immutable.Range(1, Infinity)
-   *     .skip(1000)
-   *     .map(n => -n)
-   *     .filter(n => n % 2 === 0)
-   *     .take(2)
-   *     .reduce((r, n) => r * n, 1);
-   *   // 1006008
+   *     Immutable.Range(1, Infinity)
+   *       .skip(1000)
+   *       .map(n => -n)
+   *       .filter(n => n % 2 === 0)
+   *       .take(2)
+   *       .reduce((r, n) => r * n, 1);
+   *     // 1006008
    *
    * Seq is often used to provide a rich collection API to JavaScript Object.
    *
-   *   Immutable.Seq({ x: 0, y: 1, z: 2 }).map(v => v * 2).toObject();
-   *   // { x: 0, y: 2, z: 4 }
+   *     Immutable.Seq({ x: 0, y: 1, z: 2 }).map(v => v * 2).toObject();
+   *     // { x: 0, y: 2, z: 4 }
    */
 
   export module Seq {
@@ -1413,15 +1414,15 @@ declare module Immutable {
      * not cache their results. For example, this map function is called a total
      * of 6 times, as each `join` iterates the Seq of three values.
      *
-     *   var squares = Seq.of(1,2,3).map(x => x * x);
-     *   squares.join() + squares.join();
+     *     var squares = Seq.of(1,2,3).map(x => x * x);
+     *     squares.join() + squares.join();
      *
      * If you know a `Seq` will be used multiple times, it may be more
      * efficient to first cache it in memory. Here, the map function is called
      * only 3 times.
      *
-     *   var squares = Seq.of(1,2,3).map(x => x * x).cacheResult();
-     *   squares.join() + squares.join();
+     *     var squares = Seq.of(1,2,3).map(x => x * x).cacheResult();
+     *     squares.join() + squares.join();
      *
      * Use this method judiciously, as it must fully evaluate a Seq which can be
      * a burden on memory and possibly performance.
@@ -1504,7 +1505,7 @@ declare module Immutable {
        * Returns a new Iterable.Keyed of the same type where the keys and values
        * have been flipped.
        *
-       *   Seq({ a: 'z', b: 'y' }).flip() // { z: 'a', y: 'b' }
+       *     Seq({ a: 'z', b: 'y' }).flip() // { z: 'a', y: 'b' }
        *
        */
       flip(): /*this*/Iterable.Keyed<V, K>;
@@ -1513,9 +1514,9 @@ declare module Immutable {
        * Returns a new Iterable.Keyed of the same type with keys passed through
        * a `mapper` function.
        *
-       *   Seq({ a: 1, b: 2 })
-       *     .mapKeys(x => x.toUpperCase())
-       *   // Seq { A: 1, B: 2 }
+       *     Seq({ a: 1, b: 2 })
+       *       .mapKeys(x => x.toUpperCase())
+       *     // Seq { A: 1, B: 2 }
        *
        */
       mapKeys<M>(
@@ -1527,9 +1528,9 @@ declare module Immutable {
        * Returns a new Iterable.Keyed of the same type with entries
        * ([key, value] tuples) passed through a `mapper` function.
        *
-       *   Seq({ a: 1, b: 2 })
-       *     .mapEntries(([k, v]) => [k.toUpperCase(), v * 2])
-       *   // Seq { A: 2, B: 4 }
+       *     Seq({ a: 1, b: 2 })
+       *       .mapEntries(([k, v]) => [k.toUpperCase(), v * 2])
+       *     // Seq { A: 2, B: 4 }
        *
        */
       mapEntries<KM, VM>(
@@ -1645,16 +1646,16 @@ declare module Immutable {
        * The resulting Iterable includes the first item from each, then the
        * second from each, etc.
        *
-       *   I.Seq.of(1,2,3).interleave(I.Seq.of('A','B','C'))
-       *   // Seq [ 1, 'A', 2, 'B', 3, 'C' ]
+       *     I.Seq.of(1,2,3).interleave(I.Seq.of('A','B','C'))
+       *     // Seq [ 1, 'A', 2, 'B', 3, 'C' ]
        *
        * The shortest Iterable stops interleave.
        *
-       *   I.Seq.of(1,2,3).interleave(
-       *     I.Seq.of('A','B'),
-       *     I.Seq.of('X','Y','Z')
-       *   )
-       *   // Seq [ 1, 'A', 'X', 2, 'B', 'Y' ]
+       *     I.Seq.of(1,2,3).interleave(
+       *       I.Seq.of('A','B'),
+       *       I.Seq.of('X','Y','Z')
+       *     )
+       *     // Seq [ 1, 'A', 'X', 2, 'B', 'Y' ]
        */
       interleave(...iterables: Array<Iterable<any, T>>): /*this*/Iterable.Indexed<T>;
       interleave(...iterables: Array<Iterator<T>>): /*this*/Iterable.Indexed<T>;
@@ -1667,8 +1668,8 @@ declare module Immutable {
        * `index` may be a negative number, which indexes back from the end of the
        * Iterable. `s.splice(-2)` splices after the second to last item.
        *
-       *   Seq(['a','b','c','d']).splice(1, 2, 'q', 'r', 's')
-       *   // Seq ['a', 'q', 'r', 's', 'd']
+       *     Seq(['a','b','c','d']).splice(1, 2, 'q', 'r', 's')
+       *     // Seq ['a', 'q', 'r', 's', 'd']
        *
        */
       splice(
@@ -1683,9 +1684,9 @@ declare module Immutable {
        *
        * Like `zipWith`, but using the default `zipper`: creating an `Array`.
        *
-       *   var a = Seq.of(1, 2, 3);
-       *   var b = Seq.of(4, 5, 6);
-       *   var c = a.zip(b); // Seq [ [ 1, 4 ], [ 2, 5 ], [ 3, 6 ] ]
+       *     var a = Seq.of(1, 2, 3);
+       *     var b = Seq.of(4, 5, 6);
+       *     var c = a.zip(b); // Seq [ [ 1, 4 ], [ 2, 5 ], [ 3, 6 ] ]
        *
        */
       zip(...iterables: Array<Iterable<any, any>>): /*this*/Iterable.Indexed<any>;
@@ -1695,9 +1696,9 @@ declare module Immutable {
        * Returns an Iterable of the same type "zipped" with the provided
        * iterables by using a custom `zipper` function.
        *
-       *   var a = Seq.of(1, 2, 3);
-       *   var b = Seq.of(4, 5, 6);
-       *   var c = a.zipWith((a, b) => a + b, b); // Seq [ 5, 7, 9 ]
+       *     var a = Seq.of(1, 2, 3);
+       *     var b = Seq.of(4, 5, 6);
+       *     var c = a.zipWith((a, b) => a + b, b); // Seq [ 5, 7, 9 ]
        *
        */
       zipWith<U, Z>(
@@ -1760,8 +1761,8 @@ declare module Immutable {
      * Iterable methods on Iterable.Set such as `map` and `forEach` will provide
      * the value as both the first and second arguments to the provided function.
      *
-     *   var seq = Seq.Set.of('A', 'B', 'C');
-     *   assert.equal(seq.every((v, k) => v === k), true);
+     *     var seq = Seq.Set.of('A', 'B', 'C');
+     *     assert.equal(seq.every((v, k) => v === k), true);
      *
      */
     export module Set { }
@@ -1829,11 +1830,11 @@ declare module Immutable {
      * and is used when adding this to a `Set` or as a key in a `Map`, enabling
      * lookup via a different instance.
      *
-     *   var a = List.of(1, 2, 3);
-     *   var b = List.of(1, 2, 3);
-     *   assert(a !== b); // different instances
-     *   var set = Set.of(a);
-     *   assert(set.has(b) === true);
+     *     var a = List.of(1, 2, 3);
+     *     var b = List.of(1, 2, 3);
+     *     assert(a !== b); // different instances
+     *     var set = Set.of(a);
+     *     assert(set.has(b) === true);
      *
      * If two values have the same `hashCode`, they are [not guaranteed
      * to be equal][Hash Collision]. If two values have different `hashCode`s,
@@ -1994,10 +1995,10 @@ declare module Immutable {
      *
      * Example:
      *
-     *   var indexedSeq = Immutable.Seq.of('A', 'B', 'C');
-     *   indexedSeq.filter(v => v === 'B').toString() // Seq [ 'B' ]
-     *   var keyedSeq = indexedSeq.toKeyedSeq();
-     *   keyedSeq.filter(v => v === 'B').toString() // Seq { 1: 'B' }
+     *     var indexedSeq = Immutable.Seq.of('A', 'B', 'C');
+     *     indexedSeq.filter(v => v === 'B').toString() // Seq [ 'B' ]
+     *     var keyedSeq = indexedSeq.toKeyedSeq();
+     *     keyedSeq.filter(v => v === 'B').toString() // Seq { 1: 'B' }
      *
      */
     toKeyedSeq(): Seq.Keyed<K, V>;
@@ -2056,8 +2057,8 @@ declare module Immutable {
      * Returns a new Iterable of the same type with values passed through a
      * `mapper` function.
      *
-     *   Seq({ a: 1, b: 2 }).map(x => 10 * x)
-     *   // Seq { a: 10, b: 20 }
+     *     Seq({ a: 1, b: 2 }).map(x => 10 * x)
+     *     // Seq { a: 10, b: 20 }
      *
      */
     map<M>(
@@ -2069,8 +2070,8 @@ declare module Immutable {
      * Returns a new Iterable of the same type with only the entries for which
      * the `predicate` function returns true.
      *
-     *   Seq({a:1,b:2,c:3,d:4}).filter(x => x % 2 === 0)
-     *   // Seq { b: 2, d: 4 }
+     *     Seq({a:1,b:2,c:3,d:4}).filter(x => x % 2 === 0)
+     *     // Seq { b: 2, d: 4 }
      *
      */
     filter(
@@ -2082,8 +2083,8 @@ declare module Immutable {
      * Returns a new Iterable of the same type with only the entries for which
      * the `predicate` function returns false.
      *
-     *   Seq({a:1,b:2,c:3,d:4}).filterNot(x => x % 2 === 0)
-     *   // Seq { a: 1, c: 3 }
+     *     Seq({a:1,b:2,c:3,d:4}).filterNot(x => x % 2 === 0)
+     *     // Seq { a: 1, c: 3 }
      *
      */
     filterNot(
@@ -2108,7 +2109,7 @@ declare module Immutable {
      *   * Returns `-1` (or any negative number) if `valueA` comes before `valueB`
      *   * Returns `1` (or any positive number) if `valueA` comes after `valueB`
      *   * Is pure, i.e. it must always return the same value for the same pair
-     *   of values.
+     *     of values.
      *
      * When sorting collections which have no defined order, their ordered
      * equivalents will be returned. e.g. `map.sort()` returns OrderedMap.
@@ -2119,7 +2120,7 @@ declare module Immutable {
      * Like `sort`, but also accepts a `comparatorValueMapper` which allows for
      * sorting by more sophisticated means:
      *
-     *   hitters.sortBy(hitter => hitter.avgHits);
+     *     hitters.sortBy(hitter => hitter.avgHits);
      *
      */
     sortBy<C>(
@@ -2202,9 +2203,9 @@ declare module Immutable {
      * Returns a new Iterable of the same type which includes entries starting
      * from when `predicate` first returns false.
      *
-     *   Seq.of('dog','frog','cat','hat','god')
-     *     .skipWhile(x => x.match(/g/))
-     *   // Seq [ 'cat', 'hat', 'god' ]
+     *     Seq.of('dog','frog','cat','hat','god')
+     *       .skipWhile(x => x.match(/g/))
+     *     // Seq [ 'cat', 'hat', 'god' ]
      *
      */
     skipWhile(
@@ -2216,9 +2217,9 @@ declare module Immutable {
      * Returns a new Iterable of the same type which includes entries starting
      * from when `predicate` first returns true.
      *
-     *   Seq.of('dog','frog','cat','hat','god')
-     *     .skipUntil(x => x.match(/hat/))
-     *   // Seq [ 'hat', 'god' ]
+     *     Seq.of('dog','frog','cat','hat','god')
+     *       .skipUntil(x => x.match(/hat/))
+     *     // Seq [ 'hat', 'god' ]
      *
      */
     skipUntil(
@@ -2242,9 +2243,9 @@ declare module Immutable {
      * Returns a new Iterable of the same type which includes entries from this
      * Iterable as long as the `predicate` returns true.
      *
-     *   Seq.of('dog','frog','cat','hat','god')
-     *     .takeWhile(x => x.match(/o/))
-     *   // Seq [ 'dog', 'frog' ]
+     *     Seq.of('dog','frog','cat','hat','god')
+     *       .takeWhile(x => x.match(/o/))
+     *     // Seq [ 'dog', 'frog' ]
      *
      */
     takeWhile(
@@ -2256,8 +2257,8 @@ declare module Immutable {
      * Returns a new Iterable of the same type which includes entries from this
      * Iterable as long as the `predicate` returns false.
      *
-     *   Seq.of('dog','frog','cat','hat','god').takeUntil(x => x.match(/at/))
-     *   // ['dog', 'frog']
+     *     Seq.of('dog','frog','cat','hat','god').takeUntil(x => x.match(/at/))
+     *     // ['dog', 'frog']
      *
      */
     takeUntil(
@@ -2459,7 +2460,7 @@ declare module Immutable {
      * Like `max`, but also accepts a `comparatorValueMapper` which allows for
      * comparing by more sophisticated means:
      *
-     *   hitters.maxBy(hitter => hitter.avgHits);
+     *     hitters.maxBy(hitter => hitter.avgHits);
      *
      */
     maxBy<C>(
@@ -2488,7 +2489,7 @@ declare module Immutable {
      * Like `min`, but also accepts a `comparatorValueMapper` which allows for
      * comparing by more sophisticated means:
      *
-     *   hitters.minBy(hitter => hitter.avgHits);
+     *     hitters.minBy(hitter => hitter.avgHits);
      *
      */
     minBy<C>(
@@ -2601,6 +2602,14 @@ declare module Immutable {
    */
   export interface Iterator<T> {
     next(): { value: T; done: boolean; }
+  }
+
+  module Symbol {
+    var iterator: symbol;
+  }
+
+  interface ES6Iterable<T> {
+    [Symbol.iterator](): Iterator<T>
   }
 
 }
